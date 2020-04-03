@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class属性</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="domReady.js"></script>
+    <script>
+        var CC ={
+            getClass:function (ele) {
+                return ele.className.replace(/\s+/,' ').split(' ');
+            },
+            hasClass:function(ele,cls){
+                return -1 < (' '+ele.className + ' ').indexOf(' '+ cls + ' ');
+            },
+            addClass:function (ele,cls) {
+                if (!this.hasClass(ele,cls))
+                    ele.className += ' ' + cls;
+
+            },
+            removeClss:function (ele,cls) {
+                if (this.hasClass(ele,cls)){
+                    var rag = new RegExp('(\\s|^)'+ cls +'(\\s|$)','gi');
+                    ele.className = ele.className.replace(reg,'');
+                }
+            },
+
+            toggleClass:function (ele,cls) {
+                if (this.hasClass(ele,cls)){
+                    this.removeClss(ele,cls);
+                }else{
+                    this.addClass(ele,cls)
+                }
+
+            }
+        };
+
+
+        myReady(function () {
+            var body = document.body;
+            console.log(CC.getClass(body));
+            console.log(CC.hasClass(body,'bbb'));
+            console.log(CC.toggleClass(body,'bb'));
+        })
+    </script>
+</head>
+<body class="aaa bbb ccc">
+TEST
+</body>
+</html>
