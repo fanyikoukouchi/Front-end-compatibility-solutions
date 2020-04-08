@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨浏览器时间处理解决方案</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<button id="mybtn">点击我</button>
+<script type="text/javascript">
+    //兼容所有浏览器
+    //addEventListener attachEvent
+    var EventUtil = {
+        addHandler : function (element,type,handler) {
+             //绑定事件
+            //chrome 、firefox、IE9等 addEventListener
+            //IE8及IE8以下的浏览器 attachEvent
+            if (element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }else if (element.attachEvent){
+                element.attachEvent('on'+type,handler);
+            }else{
+                element['on'+type] = null;
+            }
+
+        },
+        removeHandler: function (element,type,handler) {
+            //移除事件
+            //chrome 、firefox、IE9等 removeEventListener
+            //IE8及IE8以下的浏览器 detachEvent
+            if (element.removeEventListener){
+                element.removeEventListener(type,handler,false);
+            }else if (element.detachEvent){
+                element.detachEvent('on'+type,handler);
+            }else{
+                element['on'+type] = null
+            }
+        }
+    }
+</script>
+</body>
+</html>
